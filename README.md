@@ -1,6 +1,10 @@
 # PRF192-Workshops_and_Assignment
 All source code about PRF192 that I learned at FPT University QN AI Campus.
 
+## Requirements
+- C11 standard.
+- Dev-C++ 6.3 or above. [Click here to download!!!](https://www.embarcadero.com/free-tools/dev-cpp)
+
 ## Table of contents
 - Workshops:
   - Workshop01: [Click here!!!](https://github.com/hardingadonis/PRF192-Workshops_and_Assignment/blob/main/Workshops/Workshop01)
