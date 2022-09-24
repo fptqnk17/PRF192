@@ -1,7 +1,12 @@
 #include <stdio.h>
 
 void printMinMaxDigits(int n)
-{	
+{
+	if (n < 0)
+	{
+		return;
+	}
+	
 	int max = n % 10;
 	int min = n % 10;
 	
