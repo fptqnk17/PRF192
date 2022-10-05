@@ -17,7 +17,7 @@ int main()
 	int x = 0;
 	int y = 0;
 	
-	while (total < 2 || total > 20)
+	while (total < 3 || total > 19)
 	{
 		printf("Ball Lottery...\n");
 		printf("Total sought: ");
