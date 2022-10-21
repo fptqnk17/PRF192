@@ -34,15 +34,17 @@ void add(int array[], int value, int* count)
 
 int search(int array[], int value, int n)
 {
+	int count = 0;
+	
 	for (int i = 0; i < n; i++)
 	{
 		if (array[i] == value)
 		{
-			return i;
+			count++;
 		}
 	}
 	
-	return -1;
+	return count;
 }
 
 void printArray(int array[], int n)
@@ -156,15 +158,15 @@ int main()
 				scanf("%d", &value);
 				fflush(stdin);
 				
-				int pos = search(number_array, value, count);
+				int count_value = search(number_array, value, count);
 				
-				if (pos < 0 || pos > count)
+				if (count_value == 0)
 				{
 					printf("Not found!\n");
 				}
 				else
 				{
-					printf("Position is found: %d.\n", pos);
+					printf("Number of existences: %d.\n", count_value);
 				}
 				
 				getchar();
