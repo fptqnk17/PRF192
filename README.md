@@ -19,4 +19,4 @@
   - Workshop07: [Click here!!!](https://github.com/hardingadonis/PRF192-Workshops_and_Assignment/blob/main/Workshops/Workshop07)
   - Workshop08: [Click here!!!](https://github.com/hardingadonis/PRF192-Workshops_and_Assignment/blob/main/Workshops/Workshop08)
 
-- Assignment: []()
+- Assignment: [Click here!!!](https://github.com/hardingadonis/PRF192-Workshops_and_Assignment/blob/main/Assignment)
