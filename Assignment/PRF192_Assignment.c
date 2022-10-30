@@ -13,7 +13,16 @@
 
 #include <stdio.h>
 
+#define MAX_ARRAY 100
+
 int main()
 {
+	int  IDs[MAX_ARRAY];
+	char names[MAX_ARRAY][255];
+	int  genders[MAX_ARRAY];			// By default, 1 is male, 2 is female
+	char birthdays[MAX_ARRAY][255];
+	char phones[MAX_ARRAY][255];
+	
+	
 	return 0;
 }
