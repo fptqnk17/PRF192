@@ -153,7 +153,7 @@ void printAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char b
 {
 	for (int i = 0; i < count; i++)
 	{
-		printf("[%d]: %d\t %s\t %d\t %s\t %s\n", i, IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
+		printf("[%d]: %d\t %s\t %s\t %s\t %s\n", i, IDs[i], names[i],  genders[i] ? "Female" : "Male", birthdays[i], phones[i]);
 	}
 }
 
@@ -177,7 +177,7 @@ void addStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthda
 	scanf("%[^\n]", name);
 	fflush(stdin);
 	
-	printf("Gender (1 is male, 2 is female): ");
+	printf("Gender (0 is male, 1 is female): ");
 	scanf("%d", &gender);
 	fflush(stdin);
 	
@@ -218,6 +218,21 @@ void searchStudent(char names[][MAX_STRING], int count)
 // Lê Minh Vương - QE170148
 void saveToFile(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int count)
 {
+	printf("Please enter the file name to save!\n");
+	printf("File name: ");
+	
+	char path[MAX_STRING];
+	scanf("%[^\n]", path);
+	fflush(stdin);
+	
+	FILE* file = fopen(path, "w");
+	
+	for (int i = 0; i < count; i++)
+	{
+		fprintf(file, "%d, %s, %s, %s, %s\n", IDs[i], names[i], genders[i] ? "Female" : "Male", birthdays[i], phones[i]);
+	}
+	
+	fclose(file);
 }
 
 // 8 - Remove a student by their name
@@ -252,8 +267,6 @@ void quit()
 	printf("\t\t\t\t      |     Complete!    ~----~\n");
 	printf("\t\t\t\t      |  Have a nice day!    |\n");
 	printf("\t\t\t\t                 ");
-	
-	textColor(15);
 }
 
 int main()
@@ -264,7 +277,7 @@ int main()
 	
 	int  IDs[MAX_ARRAY];
 	char names[MAX_ARRAY][MAX_STRING];
-	int  genders[MAX_ARRAY];			// By default, 1 is male, 2 is female
+	int  genders[MAX_ARRAY];			// By default, 0 is male, 1 is female
 	char birthdays[MAX_ARRAY][MAX_STRING];
 	char phones[MAX_ARRAY][MAX_STRING];
 	
