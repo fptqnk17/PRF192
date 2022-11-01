@@ -127,21 +127,22 @@ int getUserChoice()
 	printf("\t\t\t\t |_|  |_| |______| |_| \\_|  \\____/  \n\n\n\n\n");
 	
 	textColor(15);
-	printf("\t\t\t 1. Display all students                |  Press 1\n");
-	printf("\t\t\t 2. Add new student                     |  Press 2\n");
-	printf("\t\t\t 3. Sort all students (by name)         |  Press 3\n");
-	printf("\t\t\t 4. Search a student                    |  Press 4\n");
-	printf("\t\t\t 5. Write data to file                  |  Press 5\n");
-	printf("\t\t\t 6. Remove a student                    |  Press 6\n");
-	printf("\t\t\t 7. Remove all students                 |  Press 7\n");
-	printf("\t\t\t 8. Quit!                               |  Press 8\n\n\n");
+	printf("\t\t       1. Display all students                |  Press 1\n");
+	printf("\t\t       2. Add new student                     |  Press 2\n");
+	printf("\t\t       3. Sort all students                   |  Press 3\n");
+	printf("\t\t       4. Search a student                    |  Press 4\n");
+	printf("\t\t       5. Write data to file                  |  Press 5\n");
+	printf("\t\t       6. Remove a student                    |  Press 6\n");
+	printf("\t\t       7. Remove all students                 |  Press 7\n");
+	printf("\t\t       8. Quit!                               |  Press any\n\n\n");
 	
 	textColor(11);
 	printf("\t\t\t\t\t Your choice: ");
 	
-	textColor(15);
 	scanf("%d", &choice);
 	fflush(stdin);
+	
+	textColor(15);
 	
 	return choice;
 }
@@ -150,12 +151,55 @@ int getUserChoice()
 // Đinh Quốc Chương - QE170097
 void printAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int count)
 {
+	for (int i = 0; i < count; i++)
+	{
+		printf("[%d]: %d\t %s\t %d\t %s\t %s\n", i, IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
+	}
 }
 
 // 4 - Add a student to the array
 // Nguyễn Thị Thúy - QE170033
 void addStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int* pCount)
 {
+	int ID = 0;
+	char name[MAX_STRING];
+	int gender = 0;
+	char birthday[MAX_STRING];
+	char phone[MAX_STRING];
+	
+	printf("\t|______________________* Enter information of student *______________________|\n");
+	
+	printf("Student ID: ");
+	scanf("%d", &ID);
+	fflush(stdin);
+	
+	printf("Full name: ");
+	scanf("%[^\n]", name);
+	fflush(stdin);
+	
+	printf("Gender (1 is male, 2 is female): ");
+	scanf("%d", &gender);
+	fflush(stdin);
+	
+	printf("Birthday (dd/mm/yyyy): ");
+	scanf("%[^\n]", birthday);
+	fflush(stdin);
+	
+	printf("Number phone: ");
+	scanf("%[^\n]", phone);
+	fflush(stdin);
+	
+	nameStr(name);
+	trim(birthday);
+	trim(phone);
+	
+	IDs[*pCount] = ID;
+	strcpy(names[*pCount], name);
+	genders[*pCount] = gender;
+	strcpy(birthdays[*pCount], birthday);
+	strcpy(phones[*pCount], phone);
+	
+	(*pCount)++;
 }
 
 // 5 - Print all of students and their informations to the screen after sorting arrays
@@ -188,6 +232,30 @@ void removeAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char 
 {
 }
 
+void quit()
+{
+	textColor(12);
+	
+	printf("\n\n\n\n\n\n\t\t\t\t     ,^~~~-.         .-~~~~-.^)\n");
+	printf("\t\t\t\t     :  .--. \\       /  .--.  \\\n");
+	printf("\t\t\t\t     : (    .-`<^~~~-: :    )  :\n");
+	printf("\t\t\t\t     `. `-,~            ^- '  .'\n");
+	printf("\t\t\t\t       `-:                ,.-~\n");
+	printf("\t\t\t\t        .'                  `.\n");
+	printf("\t\t\t\t       ,'   @   @            |\n");
+	printf("\t\t\t\t       :    __               ;\n");
+	printf("\t\t\t\t    ...{   (__)          ,----.\n");
+	printf("\t\t\t\t   /   `.              ,' ,--. `.\n");
+	printf("\t\t\t\t  |      `.,___   ,      :    : :\n");
+	printf("\t\t\t\t  |     .'    ~~~~       :    : :\n");
+	printf("\t\t\t\t   \\.. /               `. `--' .'\n");
+	printf("\t\t\t\t      |     Complete!    ~----~\n");
+	printf("\t\t\t\t      |  Have a nice day!    |\n");
+	printf("\t\t\t\t                 ");
+	
+	textColor(15);
+}
+
 int main()
 {
 	// Setup for console
@@ -212,43 +280,108 @@ int main()
 		{
 			case 1:
 			{
+				clrscr();
+				
+				if (isEmpty(count))
+				{
+					printf("Sorry! The list is empty!\n");
+				}
+				else
+				{
+					printAllStudents(IDs, names, genders, birthdays, phones, count);
+				}
+				
+				getchar();
 				break;
 			}
 			
 			case 2:
 			{
+				clrscr();
+				
+				if (isFull(count))
+				{
+					printf("Sorry! The list is full!\n");
+				}
+				else
+				{
+					addStudent(IDs, names, genders, birthdays, phones, &count);
+				}
+				
+				getchar();
 				break;
 			}
 			
 			case 3:
 			{
+				getchar();
 				break;
 			}
 			
 			case 4:
 			{
+				getchar();
 				break;
 			}
 			
 			case 5:
 			{
+				clrscr();
+				
+				if (isEmpty(count))
+				{
+					printf("Sorry! The list is empty!\n");
+				}
+				else
+				{
+					saveToFile(IDs, names, genders, birthdays, phones, count);
+				}
+				
+				getchar();
 				break;
 			}
 			
 			case 6:
 			{
+				clrscr();
+				
+				if (isEmpty(count))
+				{
+					printf("Sorry! The list is empty!\n");
+				}
+				else
+				{
+					removeStudent(IDs, names, genders, birthdays, phones, &count);
+				}
+				
+				getchar();
 				break;
 			}
 			
 			case 7:
 			{
+				clrscr();
+				
+				if (isEmpty(count))
+				{
+					printf("Sorry! The list is empty!\n");
+				}
+				else
+				{
+					removeAllStudents(IDs, names, genders, birthdays, phones, &count);
+				}
+				
+				getchar();
 				break;
 			}
 			
 			default:
 			{
-				system("cls");
-				printf("Have a nice day !\n");
+				clrscr();
+				
+				quit();
+				
+				getchar();
 				break;
 			}
 		}
