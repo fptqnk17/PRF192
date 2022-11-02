@@ -113,6 +113,42 @@ void printAStudent(int ID, char name[MAX_STRING], int gender, char birthday[MAX_
 	printf("\t| %-4d | %-35s | %-8s | %-10s | %-11s |\n", ID, name, gender ? "Female" : "Male", birthday, phone);
 }
 
+// Just print the title for option 4
+void printTitleOption4()
+{
+	textColor(14);
+	
+	printf("\n\n\t\t\t    ____  _____ _______ _____ ____  _   _   _  _   \n");
+	printf("\t\t\t   / __ \\|  __ \\__   __|_   _/ __ \\| \\ | | | || |  \n");
+	printf("\t\t\t  | |  | | |__) | | |    | || |  | |  \\| | | || |_ \n");
+	printf("\t\t\t  | |  | |  ___/  | |    | || |  | | . ` | |__   _|\n");
+	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  |    | |  \n");
+	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_|    |_|  \n\n\n");
+}
+
+// The menu for searching option
+int getUserChoiceForSearch()
+{
+	int choice = 0;
+	
+	textColor(15);
+	printf("\t\t\t  1. Search by ID                   |  Press 1\n");
+	printf("\t\t\t  2. Search by name                 |  Press 2\n");
+	printf("\t\t\t  3. Search by birthday             |  Press 3\n");
+	printf("\t\t\t  4. Search by phone                |  Press 4\n");
+	printf("\t\t\t  5. Quit!                          |  Press any\n\n\n");
+	
+	textColor(11);
+	printf("\t\t\t\t\t Your choice: ");
+	
+	scanf("%d", &choice);
+	fflush(stdin);
+	
+	textColor(15);
+	
+	return choice;
+}
+
 // 2 - Create menu
 // Nguyễn Thị Thúy - QE170033
 int getUserChoice()
@@ -166,22 +202,31 @@ void printAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char b
 	printf("\t\t\t   | |__| | |      | |   _| || |__| | |\\  |  | |\n");
 	printf("\t\t\t    \\____/|_|      |_|  |_____\\____/|_| \\_|  |_|\n\n\n");
 	
-	textColor(15);
-	
 	if (isEmpty(count))
 	{
+		textColor(12);
 		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
 		return;
 	}
 	
+	textColor(15);
+	
 	printf("\t\t\t\t  *** The list of all students ***\n\n");
 	
+	textColor(14);
+	
 	printf("\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
+	
+	textColor(15);
 	
 	for (int i = 0; i < count; i++)
 	{
 		printAStudent(IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
 	}
+	
+	textColor(10);
+	
+	printf("\n\t\t\t\t\t  Enter to exit...");
 }
 
 // 4 - Add a student to the array
@@ -197,13 +242,14 @@ void addStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthda
 	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  |  / /_  \n");
 	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_| |____| \n\n\n");
 	
-	textColor(15);
-	
 	if (isFull(*pCount))
 	{
+		textColor(12);
 		printf("\t\t\t\t      Sorry! The list is full!\n");
 		return;
 	}
+	
+	textColor(15);
 	
 	int ID = 0;
 	char name[MAX_STRING];
@@ -244,6 +290,10 @@ void addStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthda
 	strcpy(phones[*pCount], phone);
 	
 	(*pCount)++;
+	
+	textColor(10);
+	
+	printf("\n\t\t\t\t\t       Added!");
 }
 
 // 5 - Print all of students and their informations to the screen after sorting arrays
@@ -254,16 +304,199 @@ void sortAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char bi
 
 // 6 - Search any student by their name
 // Đinh Quốc Chương - QE170097
-void searchStudent(char names[][MAX_STRING], int count)
+void searchStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int count)
 {
+	printTitleOption4();
+	
+	if (isEmpty(count))
+	{
+		textColor(12);
+		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		return;
+	}
+	
+	int choice = 0;
+	
+	do
+	{
+		clrscr();
+		printTitleOption4();
+		
+		choice = getUserChoiceForSearch();
+		
+		switch (choice)
+		{
+			case 1:
+			{
+				clrscr();
+				printTitleOption4();
+				
+				textColor(15);
+				printf("\t\t\t\t\t*** Search by ID ***\n\n");
+				
+				int ID = 0;
+				
+				printf("\t - Student ID: ");
+				scanf("%d", &ID);
+				fflush(stdin);
+				
+				textColor(14);
+				
+				printf("\n\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
+				
+				textColor(15);
+				
+				for (int i = 0; i < count; i++)
+				{
+					if (IDs[i] == ID)
+					{
+						printAStudent(IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
+					}
+				}
+				
+				textColor(10);
+				printf("\n\t\t\t\t\t  Enter to exit...");
+				
+				getchar();
+				break;
+			}
+			
+			case 2:
+			{
+				clrscr();
+				printTitleOption4();
+				
+				textColor(15);
+				printf("\t\t\t\t       *** Search by name ***\n\n");
+				
+				char name[MAX_STRING];
+				
+				printf("\t - Full name: ");
+				scanf("%[^\n]", name);
+				fflush(stdin);
+				
+				nameStr(name);
+				
+				textColor(14);
+				
+				printf("\n\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
+				
+				textColor(15);
+				
+				for (int i = 0; i < count; i++)
+				{
+					if (strstr(names[i], name) != NULL)
+					{
+						printAStudent(IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
+					}
+				}
+				
+				textColor(10);
+				printf("\n\t\t\t\t\t  Enter to exit...");
+				
+				getchar();
+				break;
+			}
+			
+			case 3:
+			{
+				clrscr();
+				printTitleOption4();
+				
+				textColor(15);
+				printf("\t\t\t\t    *** Search by birthday ***\n\n");
+				
+				char birthday[MAX_STRING];
+				
+				printf("\t - Birthday (dd/mm/yyyy): ");
+				scanf("%[^\n]", birthday);
+				fflush(stdin);
+				
+				textColor(14);
+				
+				printf("\n\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
+				
+				textColor(15);
+				
+				for (int i = 0; i < count; i++)
+				{
+					if (strcmp(birthdays[i], birthday) == 0)
+					{
+						printAStudent(IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
+					}
+				}
+				
+				textColor(10);
+				printf("\n\t\t\t\t\t  Enter to exit...");
+				
+				getchar();
+				break;
+			}
+			
+			case 4:
+			{
+				clrscr();
+				printTitleOption4();
+				
+				textColor(15);
+				printf("\t\t\t\t      *** Search by phone ***\n\n");
+				
+				char phone[MAX_STRING];
+				
+				printf("\t - Number phone: ");
+				scanf("%[^\n]", phone);
+				fflush(stdin);
+				
+				textColor(14);
+				
+				printf("\n\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
+				
+				textColor(15);
+				
+				for (int i = 0; i < count; i++)
+				{
+					if (strstr(phones[i], phone) != NULL)
+					{
+						printAStudent(IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
+					}
+				}
+				
+				textColor(10);
+				printf("\n\t\t\t\t\t  Enter to exit...");
+				
+				getchar();
+				break;
+			}
+		}
+	} while (choice > 0 && choice < 5);
 }
 
 // 7 - Save to file
 // Lê Minh Vương - QE170148
 void saveToFile(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int count)
 {
-	printf("Please enter the file name to save!\n");
-	printf("File name: ");
+	textColor(14);
+	
+	printf("\n\n\t\t\t     ____  _____ _______ _____ ____  _   _   _____ \n");
+	printf("\t\t\t    / __ \\|  __ \\__   __|_   _/ __ \\| \\ | | | ____|\n");
+	printf("\t\t\t   | |  | | |__) | | |    | || |  | |  \\| | | |__  \n");
+	printf("\t\t\t   | |  | |  ___/  | |    | || |  | | . ` | |___ \\ \n");
+	printf("\t\t\t   | |__| | |      | |   _| || |__| | |\\  |  ___) |\n");
+	printf("\t\t\t    \\____/|_|      |_|  |_____\\____/|_| \\_| |____/ \n\n\n");
+	
+	if (isEmpty(count))
+	{
+		textColor(12);
+		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		return;
+	}
+	
+	textColor(15);
+	
+	printf("\t\t\t\t *** Save all students to file ***\n\n");
+	
+	printf("\t - Please enter the file name to save!\n");
+	printf("\t - File name: ");
 	
 	char path[MAX_STRING];
 	scanf("%[^\n]", path);
@@ -277,18 +510,112 @@ void saveToFile(int IDs[], char names[][MAX_STRING], int genders[], char birthda
 	}
 	
 	fclose(file);
+	
+	textColor(10);
+	
+	printf("\n\t\t\t\t\t       Saved!");
 }
 
 // 8 - Remove a student by their name
 // Hồ Trọng Nghĩa - QE170173
 void removeStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int* pCount)
 {
+	textColor(14);
+	
+	printf("\n\n\t\t\t    ____  _____ _______ _____ ____  _   _     __  \n");
+	printf("\t\t\t   / __ \\|  __ \\__   __|_   _/ __ \\| \\ | |   / /  \n");
+	printf("\t\t\t  | |  | | |__) | | |    | || |  | |  \\| |  / /_  \n");
+	printf("\t\t\t  | |  | |  ___/  | |    | || |  | | . ` | | '_ \\ \n");
+	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  | | (_) |\n");
+	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_|  \\___/ \n\n\n");
+	
+	if (isEmpty(*pCount))
+	{
+		textColor(12);
+		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		return;
+	}
+	
+	textColor(15);
+	
+	printf("\t\t\t\t     *** Remove a student ***\n\n");
+	
+	int ID = 0;
+	
+	printf("\t - Please enter the ID of student that you want to remove: ");
+	scanf("%d", &ID);
+	fflush(stdin);
+	
+	int check = 0;
+	int pos = 0;
+	
+	for (int i = 0; i < *pCount; i++)
+	{
+		if (IDs[i] == ID)
+		{
+			pos = i;
+			check = 1;
+			break;
+		}
+	}
+	
+	if (check == 0)
+	{
+		textColor(12);
+		
+		printf("\n\t\t\t\t  Can not find the ID to remove...");
+		
+		return;
+	}
+	
+	if (*pCount == 1)
+	{
+		*pCount = 0;
+	}
+	else
+	{
+		for (int i = pos; i < *pCount - 1; i++)
+		{
+			IDs[i] = IDs[i + 1];
+			strcpy(names[i], names[i + 1]);
+			genders[i] = genders[i + 1];
+			strcpy(birthdays[i], birthdays[i + 1]);
+			strcpy(phones[i], phones[i + 1]);
+		}
+		
+		(*pCount)--;
+	}
+	
+	textColor(10);
+	
+	printf("\n\t\t\t\t\t      Removed!");
 }
 
 // 9 - Remove all of students
 // Hồ Trọng Nghĩa - QE170173
-void removeAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int* pCount)
+void removeAllStudents(int* pCount)
 {
+	textColor(14);
+	
+	printf("\n\n\t\t\t    ____  _____ _______ _____ ____  _   _   ______ \n");
+	printf("\t\t\t   / __ \\|  __ \\__   __|_   _/ __ \\| \\ | | |____  |\n");
+	printf("\t\t\t  | |  | | |__) | | |    | || |  | |  \\| |     / / \n");
+	printf("\t\t\t  | |  | |  ___/  | |    | || |  | | . ` |    / /  \n");
+	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  |   / /   \n");
+	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_|  /_/    \n\n\n");
+	
+	if (isEmpty(*pCount))
+	{
+		textColor(12);
+		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		return;
+	}
+	
+	*pCount = 0;
+	
+	textColor(10);
+	
+	printf("\n\t\t\t\t       Removed all students!");
 }
 
 void quit()
@@ -355,64 +682,44 @@ int main()
 			
 			case 3:
 			{
+				clrscr();
 				getchar();
+				
 				break;
 			}
 			
 			case 4:
 			{
-				getchar();
+				clrscr();
+				searchStudent(IDs, names, genders, birthdays, phones, count);
+					
 				break;
 			}
 			
 			case 5:
 			{
 				clrscr();
-				
-				if (isEmpty(count))
-				{
-					printf("Sorry! The list is empty!\n");
-				}
-				else
-				{
-					saveToFile(IDs, names, genders, birthdays, phones, count);
-				}
-				
+				saveToFile(IDs, names, genders, birthdays, phones, count);
 				getchar();
+				
 				break;
 			}
 			
 			case 6:
 			{
 				clrscr();
-				
-				if (isEmpty(count))
-				{
-					printf("Sorry! The list is empty!\n");
-				}
-				else
-				{
-					removeStudent(IDs, names, genders, birthdays, phones, &count);
-				}
-				
+				removeStudent(IDs, names, genders, birthdays, phones, &count);
 				getchar();
+				
 				break;
 			}
 			
 			case 7:
 			{
 				clrscr();
-				
-				if (isEmpty(count))
-				{
-					printf("Sorry! The list is empty!\n");
-				}
-				else
-				{
-					removeAllStudents(IDs, names, genders, birthdays, phones, &count);
-				}
-				
+				removeAllStudents(&count);
 				getchar();
+				
 				break;
 			}
 			
