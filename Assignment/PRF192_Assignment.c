@@ -12,6 +12,7 @@
 // Topic 1: Students in a class
 
 #include <stdio.h>
+#include <string.h>
 #include <conio.h>
 #include <Windows.h>
 
@@ -107,6 +108,24 @@ char* nameStr(char str[])
 	return str;
 }
 
+// To get the last word of a string
+// Ex: "Nguyen Van Anh" -> "Anh"
+void lastWord(char str[MAX_STRING], char last[MAX_STRING])
+{
+	int length = strlen(str) - 1;
+	
+	for (; str[length] != ' '; length--);
+	
+	int i = 0;
+	
+	for (++length; str[length] != '\0'; length++)
+	{
+		last[i] = str[length];
+		i++;
+	}
+}
+
+// To swap two numbers
 void swapNumber(int* a, int* b)
 {
 	int temp = *a;
@@ -114,13 +133,14 @@ void swapNumber(int* a, int* b)
 	*b = temp;	
 }
 
-void swapString(char a[MAX_STRING], char b[MAX_STRING])
+// To swap two strings
+void swapString(char str1[MAX_STRING], char str2[MAX_STRING])
 {
 	char temp[MAX_STRING];
 	
-	strcpy(temp, a);
-	strcpy(a, b);
-	strcpy(b, temp);
+	strcpy(temp, str1);
+	strcpy(str1, str2);
+	strcpy(str2, temp);
 }
 
 // Just print a student
@@ -406,6 +426,31 @@ void sortAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char bi
 				
 				textColor(15);
 				printf("\t\t\t\t\t*** Sort by name ***\n\n");
+				
+				for (int i = 0; i < count; i++)
+				{
+					for (int j = count - 1; j > i; j--)
+					{
+						char lastName1[MAX_STRING];
+						char lastName2[MAX_STRING];
+						
+						lastWord(names[j], lastName1);
+						lastWord(names[j - 1], lastName2);
+						
+						if (strcmp(lastName1, lastName2) < 0)
+						{
+							swapNumber(&IDs[j], &IDs[j - 1]);
+							swapString(names[j], names[j - 1]);
+							swapNumber(&genders[j], &genders[j - 1]);
+							swapString(birthdays[j], birthdays[j - 1]);
+							swapString(phones[j], phones[j - 1]);
+						}
+					}
+				}
+				
+				textColor(10);
+				printf("\n\t\t\t   Sorted! You can use option 1 to see the change!\n");
+				printf("\n\t\t\t\t\t  Enter to exit...");
 				
 				getchar();
 				break;
