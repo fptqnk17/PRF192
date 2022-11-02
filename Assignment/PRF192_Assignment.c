@@ -107,10 +107,39 @@ char* nameStr(char str[])
 	return str;
 }
 
+void swapNumber(int* a, int* b)
+{
+	int temp = *a;
+	*a = *b;
+	*b = temp;	
+}
+
+void swapString(char a[MAX_STRING], char b[MAX_STRING])
+{
+	char temp[MAX_STRING];
+	
+	strcpy(temp, a);
+	strcpy(a, b);
+	strcpy(b, temp);
+}
+
 // Just print a student
 void printAStudent(int ID, char name[MAX_STRING], int gender, char birthday[MAX_STRING], char phone[MAX_STRING])
 {
 	printf("\t| %-4d | %-35s | %-8s | %-10s | %-11s |\n", ID, name, gender ? "Female" : "Male", birthday, phone);
+}
+
+// Just print the title for option 3
+void printTitleOption3()
+{
+	textColor(14);
+	
+	printf("\n\n\t\t\t    ____  _____ _______ _____ ____  _   _   ____  \n");
+	printf("\t\t\t   / __ \\|  __ \\__   __|_   _/ __ \\| \\ | | |___ \\ \n");
+	printf("\t\t\t  | |  | | |__) | | |    | || |  | |  \\| |   __) |\n");
+	printf("\t\t\t  | |  | |  ___/  | |    | || |  | | . ` |  |__ < \n");
+	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  |  ___) |\n");
+	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_| |____/ \n\n\n");
 }
 
 // Just print the title for option 4
@@ -124,6 +153,25 @@ void printTitleOption4()
 	printf("\t\t\t  | |  | |  ___/  | |    | || |  | | . ` | |__   _|\n");
 	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  |    | |  \n");
 	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_|    |_|  \n\n\n");
+}
+
+// The menu for sorting option
+int getUserChoiceForSort()
+{
+	int choice = 0;
+	
+	textColor(15);
+	printf("\t\t\t  1. Sort by ID                   |  Press 1\n");
+	printf("\t\t\t  2. Sort by name                 |  Press 2\n");
+	printf("\t\t\t  3. Quit!                        |  Press any\n\n\n");
+	
+	textColor(11);
+	printf("\t\t\t\t\t Your choice: ");
+	
+	scanf("%d", &choice);
+	fflush(stdin);
+	
+	return choice;
 }
 
 // The menu for searching option
@@ -143,9 +191,7 @@ int getUserChoiceForSearch()
 	
 	scanf("%d", &choice);
 	fflush(stdin);
-	
-	textColor(15);
-	
+		
 	return choice;
 }
 
@@ -300,6 +346,73 @@ void addStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthda
 // Lê Minh Vương - QE170148
 void sortAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int count)
 {
+	printTitleOption3();
+	
+	if (isEmpty(count))
+	{
+		textColor(12);
+		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		getchar();
+		
+		return;
+	}
+	
+	int choice = 0;
+	
+	do
+	{
+		clrscr();
+		printTitleOption3();
+		
+		choice = getUserChoiceForSort();
+		
+		switch (choice)
+		{
+			case 1:
+			{
+				clrscr();
+				printTitleOption3();
+				
+				textColor(15);
+				printf("\t\t\t\t\t *** Sort by ID ***\n\n");
+				
+				for (int i = 0; i < count; i++)
+				{
+					for (int j = count - 1; j > i; j--)
+					{
+						if (IDs[j] < IDs[j - 1])
+						{
+							swapNumber(&IDs[j], &IDs[j - 1]);
+							swapString(names[j], names[j - 1]);
+							swapNumber(&genders[j], &genders[j - 1]);
+							swapString(birthdays[j], birthdays[j - 1]);
+							swapString(phones[j], phones[j - 1]);
+						}
+					}
+				}
+				
+				textColor(10);
+				printf("\n\t\t\t   Sorted! You can use option 1 to see the change!\n");
+				printf("\n\t\t\t\t\t  Enter to exit...");
+				
+				getchar();
+				break;
+			}
+			
+			case 2:
+			{
+				clrscr();
+				printTitleOption3();
+				
+				textColor(15);
+				printf("\t\t\t\t\t*** Sort by name ***\n\n");
+				
+				getchar();
+				break;
+			}
+		}
+		
+	} while (choice > 0 && choice < 3);
 }
 
 // 6 - Search any student by their name
@@ -312,6 +425,8 @@ void searchStudent(int IDs[], char names[][MAX_STRING], int genders[], char birt
 	{
 		textColor(12);
 		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		getchar();
+		
 		return;
 	}
 	
@@ -683,7 +798,7 @@ int main()
 			case 3:
 			{
 				clrscr();
-				getchar();
+				sortAllStudents(IDs, names, genders, birthdays, phones, count);
 				
 				break;
 			}
