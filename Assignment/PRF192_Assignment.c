@@ -107,6 +107,12 @@ char* nameStr(char str[])
 	return str;
 }
 
+// Just print a student
+void printAStudent(int ID, char name[MAX_STRING], int gender, char birthday[MAX_STRING], char phone[MAX_STRING])
+{
+	printf("\t| %-4d | %-35s | %-8s | %-10s | %-11s |\n", ID, name, gender ? "Female" : "Male", birthday, phone);
+}
+
 // 2 - Create menu
 // Nguyễn Thị Thúy - QE170033
 int getUserChoice()
@@ -151,9 +157,28 @@ int getUserChoice()
 // Đinh Quốc Chương - QE170097
 void printAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int count)
 {
+	textColor(14);
+	
+	printf("\n\n\t\t\t     ____  _____ _______ _____ ____  _   _   __ \n");
+	printf("\t\t\t    / __ \\|  __ \\__   __|_   _/ __ \\| \\ | | /_ |\n");
+	printf("\t\t\t   | |  | | |__) | | |    | || |  | |  \\| |  | |\n");
+	printf("\t\t\t   | |  | |  ___/  | |    | || |  | | . ` |  | |\n");
+	printf("\t\t\t   | |__| | |      | |   _| || |__| | |\\  |  | |\n");
+	printf("\t\t\t    \\____/|_|      |_|  |_____\\____/|_| \\_|  |_|\n\n\n");
+	
+	textColor(15);
+	
+	if (isEmpty(count))
+	{
+		printf("\n\n\t\t\t\t     Sorry! The list is empty!\n");
+		return;
+	}
+	
+	printf("\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
+	
 	for (int i = 0; i < count; i++)
 	{
-		printf("[%d]: %d\t %s\t %s\t %s\t %s\n", i, IDs[i], names[i],  genders[i] ? "Female" : "Male", birthdays[i], phones[i]);
+		printAStudent(IDs[i], names[i],  genders[i], birthdays[i], phones[i]);
 	}
 }
 
@@ -294,17 +319,9 @@ int main()
 			case 1:
 			{
 				clrscr();
-				
-				if (isEmpty(count))
-				{
-					printf("Sorry! The list is empty!\n");
-				}
-				else
-				{
-					printAllStudents(IDs, names, genders, birthdays, phones, count);
-				}
-				
+				printAllStudents(IDs, names, genders, birthdays, phones, count);
 				getchar();
+				
 				break;
 			}
 			
