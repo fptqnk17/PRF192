@@ -33,12 +33,12 @@ void textColor(int color)
 
 int isFull(int n)
 {
-	return n == MAX_ARRAY;
+	return n >= MAX_ARRAY;
 }
 
 int isEmpty(int n)
 {
-	return n == 0;
+	return n <= 0;
 }
 
 char* ltrim(char str[])
@@ -174,6 +174,8 @@ void printAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char b
 		return;
 	}
 	
+	printf("\t\t\t\t  *** The list of all students ***\n\n");
+	
 	printf("\t| %-4s | %-35s | %-8s | %-10s | %-11s |\n", " ID", "             Full name", " Gender", " Birthday", "   Phone");
 	
 	for (int i = 0; i < count; i++)
@@ -186,31 +188,48 @@ void printAllStudents(int IDs[], char names[][MAX_STRING], int genders[], char b
 // Nguyễn Thị Thúy - QE170033
 void addStudent(int IDs[], char names[][MAX_STRING], int genders[], char birthdays[][MAX_STRING], char phones[][MAX_STRING], int* pCount)
 {
+	textColor(14);
+	
+	printf("\n\n\t\t\t    ____  _____ _______ _____ ____  _   _   ___   \n");
+	printf("\t\t\t   / __ \\|  __ \\__   __|_   _/ __ \\| \\ | | |__ \\  \n");
+	printf("\t\t\t  | |  | | |__) | | |    | || |  | |  \\| |    ) | \n");
+	printf("\t\t\t  | |  | |  ___/  | |    | || |  | | . ` |   / /  \n");
+	printf("\t\t\t  | |__| | |      | |   _| || |__| | |\\  |  / /_  \n");
+	printf("\t\t\t   \\____/|_|      |_|  |_____\\____/|_| \\_| |____| \n\n\n");
+	
+	textColor(15);
+	
+	if (isFull(*pCount))
+	{
+		printf("\t\t\t\t      Sorry! The list is full!\n");
+		return;
+	}
+	
 	int ID = 0;
 	char name[MAX_STRING];
 	int gender = 0;
 	char birthday[MAX_STRING];
 	char phone[MAX_STRING];
 	
-	printf("\t|______________________* Enter information of student *______________________|\n");
+	printf("\t\t\t\t*** Enter information of student ***\n\n");
 	
-	printf("Student ID: ");
+	printf("\t - Student ID: ");
 	scanf("%d", &ID);
 	fflush(stdin);
 	
-	printf("Full name: ");
+	printf("\t - Full name: ");
 	scanf("%[^\n]", name);
 	fflush(stdin);
 	
-	printf("Gender (0 is male, 1 is female): ");
+	printf("\t - Gender (0 is male, 1 is female): ");
 	scanf("%d", &gender);
 	fflush(stdin);
 	
-	printf("Birthday (dd/mm/yyyy): ");
+	printf("\t - Birthday (dd/mm/yyyy): ");
 	scanf("%[^\n]", birthday);
 	fflush(stdin);
 	
-	printf("Number phone: ");
+	printf("\t - Number phone: ");
 	scanf("%[^\n]", phone);
 	fflush(stdin);
 	
@@ -328,17 +347,9 @@ int main()
 			case 2:
 			{
 				clrscr();
-				
-				if (isFull(count))
-				{
-					printf("Sorry! The list is full!\n");
-				}
-				else
-				{
-					addStudent(IDs, names, genders, birthdays, phones, &count);
-				}
-				
+				addStudent(IDs, names, genders, birthdays, phones, &count);
 				getchar();
+				
 				break;
 			}
 			
