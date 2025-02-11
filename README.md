@@ -1,8 +1,15 @@
 # PRF192
-> All source code about PRF192 that I learned at FPT University QN AI Campus.
 
 ![Languages](https://img.shields.io/github/languages/top/fptqnk17/PRF192?style=flat)
 ![Repo Size](https://img.shields.io/github/repo-size/fptqnk17/PRF192?style=flat)
+
+> All source code about PRF192 that I learned at FPT University QN AI Campus.
+
+## 📢 Advertisement
+
+<img src="https://raw.githubusercontent.com/fptqnk17/.github/refs/heads/main/images/banner-bao-thu.png" alt="Advertisement" />
+
+---
 
 ## Requirements
 - C11 standard.
